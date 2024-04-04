@@ -1,0 +1,19 @@
+.example-fill-remaining-space {
+    flex: 1 1 auto;
+  }
+
+
+  .logout-link {
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background-color: #f44336; /* Red color */
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  }
+  
+  .logout-link:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+    color: white;
+  }

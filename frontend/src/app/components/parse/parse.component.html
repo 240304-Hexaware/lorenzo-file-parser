@@ -1,0 +1,47 @@
+<div class="parse-container">
+    <h2 class="parse-header">Parse Flat File</h2>
+
+    <div class="select-file-container">
+
+      <div class="file-container">
+        <div class="select-flat-file-section">
+          <h3>Select Flat File</h3>
+          <ul>
+            <li *ngFor="let flatFile of flatFiles" (click)="selectFlatFile(flatFile)" [class.selected]="flatFile === selectedFlatFile">
+              {{ flatFile }}
+            </li>
+          </ul>
+          <div class="file-content-section" *ngIf="selectedFlatFile">
+            <pre>{{ flatFileContent }}</pre>
+          </div>
+        </div>
+      </div>
+  
+
+      <div class="spec-container">
+        <div class="select-specification-section" *ngIf="selectedFlatFile">
+          <h3>Select Specification</h3>
+          <ul>
+            <li *ngFor="let specification of specifications" (click)="selectSpecification(specification)" [class.selected]="specification === selectedSpecification">
+              {{ specification.specName }}
+            </li>
+          </ul>
+          <div class="specification-content" *ngIf="selectedSpecification">
+            <pre>{{ selectedSpecification.specs | json }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <div class="parsing-results-container" *ngIf="isParsed">
+        <div class="parsing-results" *ngIf="isParsed">
+          <h3>Parsing Results</h3>
+          <div *ngFor="let parsedData of parsingResults">
+            <pre>{{ parsedData.parsedData | json }}</pre>
+          </div>
+        </div>
+      </div>
+    <button class="btn-parse" mat-raised-button color="primary" *ngIf="selectedFlatFile && selectedSpecification && !parsingResults" (click)="parseFlatFile()">Parse Flat File</button>
+    <button class="btn-parse" mat-raised-button color="primary" *ngIf="selectedFlatFile && selectedSpecification && parsingResults" (click)="reset()">Parse Another File</button>
+</div>

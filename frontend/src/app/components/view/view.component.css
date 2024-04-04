@@ -1,0 +1,55 @@
+.view-files-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.files-section, .specs-section {
+    width: 48%; /* Adjust width as needed */
+    border: 1px solid #ccc; /* Add border */
+    padding: 10px; /* Add padding for spacing */
+    box-sizing: border-box; /* Include padding and border in the width */
+    margin-bottom: 20px;
+}
+
+.files-section {
+    margin-right: 2%; /* Adjust margin as needed */
+}
+
+.specs-section {
+    margin-left: 2%; /* Adjust margin as needed */
+}
+
+.files-section ul, .specs-section ul {
+    list-style-type: none;
+  }
+  
+  .files-section ul li, .specs-section ul li  {
+    cursor: pointer;
+    padding: 5px 0;
+  }
+  
+  .files-section ul li:hover, .specs-section ul li:hover {
+    text-decoration: underline;
+  }
+  
+  .files-section ul li.selected, .specs-section ul li.selected {
+    font-weight: bold;
+    background-color: #f0f0f0;
+  }
+  .view-header{
+    text-align: center;
+  }
+  .query-button {
+    background-color: #007bff; /* Change to your preferred button color */
+    color: #ffffff; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+  }
+  
+  .query-button:hover {
+    background-color: #0056b3; /* Darker shade of button color on hover */
+  }

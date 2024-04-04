@@ -1,0 +1,117 @@
+<!-- <div class="container">
+    <h2>Login or Register</h2>
+    <div *ngIf="!showRegisterForm">
+      <h3>Login</h3>
+      <form (ngSubmit)="login()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" class="form-control" [(ngModel)]="loginForm.username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control" [(ngModel)]="loginForm.password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <p>Don't have an account? <a href="#" (click)="toggleForm()">Register here</a></p>
+    </div>
+  
+    <div *ngIf="showRegisterForm">
+      <h3>Register</h3>
+      <form (ngSubmit)="register()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-control" [(ngModel)]="registerForm.email" required>
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" class="form-control" [(ngModel)]="registerForm.username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control" [(ngModel)]="registerForm.password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+      <p>Already have an account? <a href="#" (click)="toggleForm()">Login here</a></p>
+    </div>
+  </div> -->
+<div class="container">
+  <div class="login-container" *ngIf="!showRegisterForm">
+    <mat-card class="login-card">
+      <div class="login-card-header">
+        <mat-card-title>Sign in</mat-card-title>
+      </div>
+      <mat-card-content>
+        <form (ngSubmit)="login()">
+          <mat-form-field>
+            <mat-label for="username">Username</mat-label>
+            <input matInput type="text" placeholder=" "  name="username" [(ngModel)]="loginForm.username" floatLabel="always" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label for="password">Password</mat-label>
+            <input matInput placeholder=" " type="{{ hidePassword ? 'password' : 'text' }}"  name="password" floatLabel="always" [(ngModel)]="loginForm.password" required>
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <br>
+          <div *ngIf="loginFailed" style="color: red;">Incorrect username or password</div> <!-- Added section -->
+          <button mat-raised-button color="primary">Sign In</button>
+        </form>
+      </mat-card-content>
+      <div class="line-separator"></div>
+      <mat-card-content class="register-button">
+        <button mat-raised-button color="secondary" (click)="toggleForm()">Create an account</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+
+  <div class="register-container" *ngIf="showRegisterForm">
+    <mat-card class="register-card">
+        <div class="register-card-header">
+            <mat-card-title>Sign up</mat-card-title>
+        </div>
+        <mat-card-content>
+            <form (ngSubmit)="register()">
+                <mat-form-field>
+                    <mat-label for="email">Email</mat-label>
+                    <input matInput type="email"  name="email" [(ngModel)]="registerForm.email"
+                        floatLabel="always" required>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <mat-label for="username">Username</mat-label>
+                    <input matInput type="text" placeholder=" " name="username" [(ngModel)]="registerForm.username"
+                        floatLabel="always" required>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <mat-label for="password">Password</mat-label>
+                    <input matInput placeholder=" " type="password" name="password" floatLabel="always"
+                        [(ngModel)]="registerForm.password" required>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <mat-label for="confirmPassword">Confirm Password</mat-label>
+                    <input matInput placeholder=" " type="password" name="confirmPassword" floatLabel="always"
+                        [(ngModel)]="registerForm.confirmPassword" required>
+                </mat-form-field>
+                <br>
+                <div *ngIf="registerForm.password !== registerForm.confirmPassword" style="color: red;">Passwords
+                    do not match</div> <!-- Added section -->
+                <div *ngIf="registrationError" style="color: red;">{{ registrationError }}</div>
+                <button mat-raised-button color="primary">Sign Up</button>
+            </form>
+        </mat-card-content>
+        <div class="line-separator"></div>
+        <mat-card-content class="login-button">
+            <button mat-raised-button color="secondary" (click)="toggleForm()">I already have an account</button>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+</div>  
+  

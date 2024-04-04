@@ -1,0 +1,33 @@
+.login-container, .register-container {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height: 80vh;
+  }
+  
+  .login-card, .register-card {
+    width: 600px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-card-header, .register-card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px; 
+    margin-bottom: 10px; 
+  }
+
+  .register-button, .login-button {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .line-separator {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    margin: 20px; 
+  }

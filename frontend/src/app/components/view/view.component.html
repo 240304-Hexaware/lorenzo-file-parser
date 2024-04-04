@@ -1,0 +1,55 @@
+<h1 class="view-header">View Records</h1>
+<button class="query-button" (click)="redirectToQuery()">
+  <i class="fas fa-search"></i> Query
+</button>
+
+<div class="view-files-container">
+  
+  <div class="files-section">
+      <h2>Records From Files</h2>
+
+      <div class="flat-files-section">
+          <ul>
+              <li *ngFor="let flatFile of flatFiles" 
+                  (click)="getParsedDataFromFile(flatFile)"
+                  [class.selected]="flatFile === selectedFlatFile">
+                  {{ flatFile }}
+              </li>
+          </ul>
+      </div>
+
+      <div class="parsed-data-section" *ngIf="selectedFlatFile">
+          <h3>Parsed Data for {{ selectedFlatFile }}</h3>
+          <ul>
+              <li *ngFor="let data of parsedData">
+                  <strong>{{ data.parsedData | json}}:</strong>
+                  <button (click)="downloadParsedData(data.parsedData, selectedFlatFile)">Download</button>
+              </li>
+          </ul>
+      </div>
+  </div>
+
+  <div class="specs-section">
+      <h2> Records From Specs</h2>
+
+      <div class="specifications-section">
+          <ul>
+              <li *ngFor="let specFile of specFiles" 
+              (click)="getParsedDataFromSpec(specFile.specName)"
+              [class.selected]="specFile.specName === selectedSpecFile">
+              {{ specFile.specName }}
+              </li>
+          </ul>
+      </div>
+
+      <div class="parsed-data-section" *ngIf="selectedSpecFile">
+          <h3>Parsed Data for {{ selectedSpecFile }}</h3>
+          <ul>
+              <li *ngFor="let data of parsedDataFromSpec">
+                  <strong>{{ data.parsedData | json}}:</strong>
+                  <button (click)="downloadParsedData(data.parsedData, selectedSpecFile)">Download</button>
+              </li>
+          </ul>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div>
+<div class="tile-container">
+    <div class="tile" (click)="navigateTo('/upload')">
+      <h2>Upload</h2>
+      <p>Upload your files or data</p>
+    </div>
+    <div class="tile" (click)="navigateTo('/parse')">
+      <h2>Parse</h2>
+      <p>Parse and analyze your data</p>
+    </div>
+    <div class="tile" (click)="navigateTo('/view')">
+      <h2>View</h2>
+      <p>View your parsed data</p>
+    </div>
+</div>
+<div class="flat-files-container">
+  <div class="flat-files-section">
+    <ul>
+        <li *ngFor="let flatFile of flatFiles" 
+            (click)="toggleFileContent(flatFile)" 
+            [class.selected]="flatFile === selectedFlatFile"
+            >
+            {{ flatFile }}
+        </li>
+    </ul>
+    <div class="flat-file-content" *ngIf="selectedFlatFile">
+      <h3>Content of {{ selectedFlatFile }}</h3>
+      <pre>{{ flatFileContent }}</pre>
+      <button mat-raised-button color="primary" (click)="downloadFlatFile(selectedFlatFile)">Download</button>
+    </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,19 @@
+<div class="query-records">
+    <h2>Query Records</h2>
+    <div class="query-inputs">
+      <input type="text" placeholder="Field Name" [(ngModel)]="fieldName">
+      <input type="text" placeholder="Field Value" [(ngModel)]="fieldValue">
+      <button (click)="queryRecords()">Query</button>
+    </div>
+    <div class="query-results" *ngIf="parsedDataFromQuery.length > 0">
+      <h3>Query Results</h3>
+      <!-- <div class="query-result-row" *ngFor="let data of parsedDataFromQuery">
+        <pre>{{ data.parsedData | json }}</pre>
+      </div> -->
+      <ul>
+        <li *ngFor="let data of parsedDataFromQuery">
+            <strong>{{ data.parsedData | json}}:</strong>
+        </li>
+    </ul>
+    </div>
+  </div>
