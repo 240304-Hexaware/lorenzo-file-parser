@@ -125,7 +125,7 @@ public class ParsedDataService {
     }
 
     public List<ParsedData> getParsedDataFromFile(String userId, String flatFilePath) throws Exception{
-        String url = "/Users/user/IdeaProjects/Lorenzo_Project/uploads/" + flatFilePath;
+        String url = "/Users/user/Desktop/lorenzo-file-parser/backend/uploads/" + flatFilePath;
         List<Metadata> usersMetadata = metadataRepository.findByUserIdAndFlatFilePath(userId, url);
         List<String> parsedDataId = new ArrayList<>();
         List<ParsedData> parsedData = new ArrayList<>();

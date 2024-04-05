@@ -43,7 +43,7 @@
         <mat-card-title>Sign in</mat-card-title>
       </div>
       <mat-card-content>
-        <form (ngSubmit)="login()">
+        <form (ngSubmit)="login($event)">
           <mat-form-field>
             <mat-label for="username">Username</mat-label>
             <input matInput type="text" placeholder=" "  name="username" [(ngModel)]="loginForm.username" floatLabel="always" required>
@@ -51,7 +51,7 @@
           <br>
           <mat-form-field>
             <mat-label for="password">Password</mat-label>
-            <input matInput placeholder=" " type="{{ hidePassword ? 'password' : 'text' }}"  name="password" floatLabel="always" [(ngModel)]="loginForm.password" required>
+            <input matInput placeholder=" " type="{{ hidePassword ? 'password' : 'text' }}" name="password" floatLabel="always" [(ngModel)]="loginForm.password" required (keydown.enter)="onEnterKeyPressed($event)">
             <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
               <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
@@ -75,7 +75,7 @@
             <mat-card-title>Sign up</mat-card-title>
         </div>
         <mat-card-content>
-            <form (ngSubmit)="register()">
+            <form (ngSubmit)="register($event)">
                 <mat-form-field>
                     <mat-label for="email">Email</mat-label>
                     <input matInput type="email"  name="email" [(ngModel)]="registerForm.email"

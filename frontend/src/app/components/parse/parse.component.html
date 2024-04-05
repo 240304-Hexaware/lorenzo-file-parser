@@ -42,6 +42,8 @@
           </div>
         </div>
       </div>
-    <button class="btn-parse" mat-raised-button color="primary" *ngIf="selectedFlatFile && selectedSpecification && !parsingResults" (click)="parseFlatFile()">Parse Flat File</button>
-    <button class="btn-parse" mat-raised-button color="primary" *ngIf="selectedFlatFile && selectedSpecification && parsingResults" (click)="reset()">Parse Another File</button>
+      <div class="parse-button">
+        <button class="btn-parse" mat-raised-button color="primary" *ngIf="selectedFlatFile && selectedSpecification && !parsingResults" (click)="parseFlatFile()">Parse Flat File</button>
+        <button class="btn-parse" mat-raised-button color="primary" *ngIf="selectedFlatFile && selectedSpecification && parsingResults" (click)="reset()">Parse Another File</button>
+      </div>
 </div>

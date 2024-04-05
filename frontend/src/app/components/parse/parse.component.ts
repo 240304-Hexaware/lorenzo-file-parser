@@ -3,6 +3,8 @@ import { FileService } from '../../services/file/file.service';
 import { KeyValuePipe, NgFor, NgIf, JsonPipe } from '@angular/common';
 import { KeyValue } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { SpecificationResponse } from '../../interfaces/specification-response';
+import { ParsedResponse } from '../../interfaces/parsed-response';
 
 
 @Component({
@@ -13,14 +15,14 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './parse.component.css'
 })
 export class ParseComponent {
-  flatFiles: any[] = [];
-  specifications: any[] = [];
-  selectedFlatFile: any = null;
-  selectedSpecification: any = null;
-  parsingResults: any  = null;
+  flatFiles: string[] = [];
+  specifications: SpecificationResponse[] = [];
+  selectedFlatFile: string | null = null;
+  selectedSpecification: SpecificationResponse | null = null;
+  parsingResults: ParsedResponse[] | null  = null;
   isParsed: boolean = false;
   flatFileContent: string | null = null;
-  specificationContent: any | null = null;
+  specificationContent: SpecificationResponse | null = null;
   
 
   constructor(
@@ -52,9 +54,6 @@ export class ParseComponent {
     this.getFileContent(flatFile);
   }
 
-  toggleSection() {
-    this.selectedFlatFile = !this.selectedFlatFile;
-  }
 
   getFileContent(flatFile: string): void {
     this.fileService.getFlatFileContent(flatFile).subscribe(
@@ -70,7 +69,7 @@ export class ParseComponent {
   getSpecificationContent(specName: string): void {
     this.fileService.getSpecificationContent(specName).subscribe(
       content => {
-          this.specificationContent = content;
+        this.specificationContent = content;
       },
       error => {
           console.error('Error retrieving file content:', error);
@@ -78,25 +77,19 @@ export class ParseComponent {
   );
   }
 
-  selectSpecification(specification: any): void {
+  selectSpecification(specification: SpecificationResponse): void {
     if(this.selectedSpecification ==  specification) {
       return;
     }
     this.selectedSpecification = specification;
     this.getSpecificationContent(specification.specName);
-    console.log(this.selectedSpecification);
   }
 
-  // parseFlatFile(): void {
-  //  this.fileService.parseFlatFile(this.selectedFlatFile, this.selectedSpecification.specName).subscribe(parsed =>{
-  //   console.log(parsed);
-  //   this.isParsed = true;
-  //   this.parsingResults.push(parsed);
-  //  });
-  // }
   parseFlatFile(): void {
+    if(this.selectedSpecification?.specName == null || this.selectedFlatFile == null){
+      return;
+    } 
     this.fileService.parseFlatFile(this.selectedFlatFile, this.selectedSpecification.specName).subscribe(parsedList => {
-      console.log(parsedList);
       this.isParsed = true;
       this.parsingResults = parsedList; 
     });

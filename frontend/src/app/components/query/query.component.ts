@@ -2,6 +2,7 @@ import { NgIf, NgFor, JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FileService } from '../../services/file/file.service';
+import { ParsedResponse } from '../../interfaces/parsed-response';
 
 @Component({
   selector: 'app-query',
@@ -14,17 +15,15 @@ export class QueryComponent {
 
   fieldName: string = '';
   fieldValue: string = '';
-  parsedDataFromQuery: any[] = [];
+  parsedDataFromQuery: ParsedResponse[] = [];
 
   constructor(private fileService: FileService){}
   queryRecords() {
     if (this.fieldName && this.fieldValue) {
       this.fileService.getParsedDataFromFieldAndValue(this.fieldName, this.fieldValue)
         .subscribe(data => {
-          // Handle the response data as needed
           this.parsedDataFromQuery = data;
         });
     }
   }
-
 }

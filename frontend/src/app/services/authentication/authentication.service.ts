@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { TokenService } from '../token/token.service';
+import { AuthResponse } from '../../interfaces/AuthResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class AuthService {
 
   constructor( private http: HttpClient, private token: TokenService ) { }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/authenticate`, { username, password })
+  login(username: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/authenticate`, { username, password })
       .pipe(
         map(response =>{
           this.token.storeToken(response.token);
@@ -24,8 +25,8 @@ export class AuthService {
       );
   }
 
-  register(username: string, email: string, password: string, isAccountDisabled: boolean): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/register`, { username, email, password, isAccountDisabled })
+  register(username: string, email: string, password: string, isAccountDisabled: boolean): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, { username, email, password, isAccountDisabled })
       .pipe(
         map((response) => {
           if(response.token){
@@ -37,17 +38,10 @@ export class AuthService {
   }
 
   logout() {
-    // this.token.storeTokenAndUserId('', '');
     this.token.clearTokenAndUserId();
   }
 
   isAuthenticated(): boolean {
-    // if(this.token.getToken() == null){
-    //   return false;
-    // }
-    // return true;
-
     return !!this.token.getToken();
-
   }
 }
