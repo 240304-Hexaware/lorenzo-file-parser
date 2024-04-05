@@ -5,8 +5,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
-import axios from 'axios';
-import { TokenService } from '../../services/token/token.service';
 import { FormControl, FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { NgIf, AsyncPipe } from '@angular/common';
@@ -40,23 +38,6 @@ export class UploadComponent {
 
   constructor(private fileService: FileService) { }
 
-  // onSubmit(event: Event) {
-  //   event.preventDefault();
-  //   if (this.specFile || this.flatFile) {
-  //     if(this.specFile){
-  //       if(this.specName.length < 3){
-  //         alert("spec name must be at least 3 characters");
-  //       }
-  //       this.uploadSpecFile();
-  //     }
-  //     if(this.flatFile){
-  //       this.uploadFlatFile();
-  //     }
-  //   } else {
-  //     console.error('Please attach a file.');
-  //     alert("Please attach a file");
-  //   }
-  // }
   onSubmitSpec(event: Event) {
     event.preventDefault();
     if (!this.specFile) {
@@ -83,14 +64,20 @@ export class UploadComponent {
   }
   
 
-  onSpecFileSelected(event: any) {
-    this.specFile = event.target.files[0];
-    this.specFileContent$ = this.fileService.parseFileContent(event.target.files[0]);
+  onSpecFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement; 
+    if (inputElement && inputElement.files && inputElement.files.length > 0) {
+      this.specFile = inputElement.files[0];
+      this.specFileContent$ = this.fileService.parseFileContent(this.specFile);
+    }
   }
 
-  onFlatFileSelected(event: any) {
-    this.flatFile = event.target.files[0];
-    this.fileContent$ = this.fileService.parseFileContent(event.target.files[0]);
+  onFlatFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if(inputElement && inputElement.files && inputElement.files.length > 0){
+      this.flatFile = inputElement.files[0];
+      this.fileContent$ = this.fileService.parseFileContent(this.flatFile);
+    }
   }
 
 
@@ -100,7 +87,6 @@ export class UploadComponent {
     }
     this.fileService.uploadSpecFile(this.specFile, this.specName).subscribe(
       response => {
-        console.log('Specification file uploaded successfully:', response);
         alert("specification file uploaded successfully");
         this.resetForm();
       },
@@ -114,7 +100,6 @@ export class UploadComponent {
   private uploadFlatFile() {
     this.fileService.uploadFlatFile(this.flatFile)
       .then(message => {
-        console.log(message);
         alert("flat file saved successfully");
         this.resetForm();
       })

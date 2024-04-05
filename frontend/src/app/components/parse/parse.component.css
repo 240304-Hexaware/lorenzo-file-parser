@@ -1,3 +1,8 @@
+.parse-container{
+  padding-bottom: 50px;
+  position: relative;
+}
+
 .select-file-container{
     display: flex;
     justify-content: space-between; 
@@ -58,9 +63,16 @@
     margin-left: 2px; 
   }
 
-  .btn-parse{
-    margin-bottom:45px;
+  .btn-parse {
+    position: fixed; /* Fix the button at the bottom of the screen */
+    bottom: 50px; /* Adjust this value as needed to provide some space above the footer */
+    right: 20px; /* Adjust this value as needed to position the button horizontally */
+    z-index: 1; /* Ensure the button appears above other elements */
   }
+
+  /* .parse-button{
+    padding-bottom:50px;
+  } */
 
   .parse-header{
     text-align:center;

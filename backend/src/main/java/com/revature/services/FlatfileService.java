@@ -72,7 +72,7 @@ public class FlatfileService {
 
     public ResponseEntity<InputStreamResource> downloadFile(String filename) throws IOException {
         // Assuming the files are stored in a directory named "uploads" within the project directory
-        String filePath = "/Users/user/IdeaProjects/Lorenzo_Project/uploads/" + filename;
+        String filePath = "/Users/user/Desktop/lorenzo-file-parser/backend/uploads/" + filename;
         File file = new File(filePath);
 
         if (!file.exists()) {

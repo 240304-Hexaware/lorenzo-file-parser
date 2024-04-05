@@ -5,6 +5,8 @@ import { KeyValue } from '@angular/common';
 import { spec } from 'node:test/reporters';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SpecificationResponse } from '../../interfaces/specification-response';
+import { ParsedResponse } from '../../interfaces/parsed-response';
 
 @Component({
   selector: 'app-view',
@@ -15,12 +17,10 @@ import { Router } from '@angular/router';
 })
 export class ViewComponent {
   
-  parsedFiles: any[] = [];
-  flatFiles: any[] = [];
-  specFiles: any[] = [];
-  metadata: any[] = [];
-  parsedData: any[] = [];
-  parsedDataFromSpec: any[] = [];
+  flatFiles: string[] = [];
+  specFiles: SpecificationResponse[] = [];
+  parsedData: ParsedResponse[] = [];
+  parsedDataFromSpec: ParsedResponse[] = [];
   selectedFlatFile: string | null = null;
   selectedSpecFile: string | null = null;
 
@@ -82,22 +82,15 @@ export class ViewComponent {
   
   downloadParsedData(parsedData: any, fileName: string): void {
     const jsonData = JSON.stringify(parsedData);
-
-    // Create a blob from the JSON string
     const blob = new Blob([jsonData], { type: 'application/json' });
-
-    // Create a temporary link element to trigger the download
     const link = document.createElement('a');
+
     link.href = window.URL.createObjectURL(blob);
 
-    // Set the desired file name
     const downloadFileName = fileName.replace(/\.[^/.]+$/, "") + '.json';
     link.download = downloadFileName;
 
-    // Simulate a click on the link to trigger the download
     link.click();
-
-    // Clean up resources
     window.URL.revokeObjectURL(link.href);
   }
 

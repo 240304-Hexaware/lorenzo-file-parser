@@ -52,25 +52,33 @@ export class AuthenticationComponent {
     this.hidePassword = !this.hidePassword;
   }
 
-  login() {
+  onEnterKeyPressed(event: any) {
+    if (event.target === document.activeElement && event.target === event.currentTarget) {
+      event.preventDefault();
+      this.login(event);
+    }
+  }
+
+  login(event: Event) {
     const { username, password } = this.loginForm;
     this.authService.login(username, password).subscribe(
       response => {
         this.router.navigate(['/dashboard']);
       },
       error => {
-        console.error('Login failed:', error.errors);
+        // console.error('Login failed:', error.error.errors);
         this.loginFailed = true;
       }
     );
   }
 
-  register() {
+  register(event: Event) {
+    event.preventDefault();
     const { username, email, password } = this.registerForm;
     if (this.registerForm.password !== this.registerForm.confirmPassword) {
       this.registerForm.confirmPassword = '';
       return;
-  }
+    }
     const isAccountDisabled: boolean = false;
     this.authService.register(username, email, password, isAccountDisabled).subscribe(
       response => {
@@ -78,7 +86,6 @@ export class AuthenticationComponent {
       },
       (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status === 400) {
-            // Bad request, display error messages from the backend
             const errorBody = errorResponse.error;
             if (errorBody && errorBody.errors) {
                 this.registrationError = errorBody.errors.join(', ');

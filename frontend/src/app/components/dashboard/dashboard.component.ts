@@ -14,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 export class DashboardComponent {
 
-  flatFiles: any[] = [];
+  flatFiles: string[] = [];
   flatFileContent: string | null = null;
   flatFileSelected: boolean = false;
   selectedFlatFile: string | null = '';
@@ -31,10 +31,8 @@ export class DashboardComponent {
 
   toggleFileContent(flatFile: string): void {
     if (this.selectedFlatFile === flatFile) {
-        // If the same file is clicked again, toggle its visibility
         this.selectedFlatFile = null;
     } else {
-        // Otherwise, get the file content
         this.getFileContent(flatFile);
     }
 }
@@ -54,11 +52,11 @@ export class DashboardComponent {
     this.selectedFlatFile = flatFile;
     this.fileService.getFlatFileContent(flatFile).subscribe(
         content => {
-            this.flatFileContent = content;
-            this.flatFileSelected = true;
+          this.flatFileContent = content;
+          this.flatFileSelected = true;
         },
         error => {
-            console.error('Error retrieving file content:', error);
+          console.error('Error retrieving file content:', error);
         }
     );
   }
